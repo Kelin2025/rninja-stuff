@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  background: #171717;
+  color: #fff;
+  font: 16px Arial, sans-serif;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
