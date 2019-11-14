@@ -1,8 +1,12 @@
-import React from "react"
-import ReactDOM from "react-dom"
+import React from "react";
+import ReactDOM from "react-dom";
+
+import { Root } from "~features/layout";
+
+import "./routes";
 
 const App = () => {
-  return <div>test</div>
-}
+  return <Root />;
+};
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"));
