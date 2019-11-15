@@ -39,8 +39,11 @@ createPoll.done.watch(({ params, result }) => {
 
 messageReceived.watch(async ({ nickname, text }) => {
   const polls = await getActivePolls();
+  console.log("check", text);
   for (const poll of polls) {
+    console.log(poll);
     const idx = poll.answers.findIndex(answer => answer === text);
+    console.log(idx);
     if (idx !== -1) {
       voteInPoll({ id: poll._id, voterId: nickname, idx });
     }
