@@ -2,8 +2,10 @@ import { forward } from "effector";
 import { app } from "../../../server/core/app";
 
 import {
-  sendTts,
+  sendTtsAudio,
   sendTtsPlayed,
+  sendTtsCreated,
+  sendTtsRemoved,
   getTtsMessages,
   createTtsMessage,
   removeTtsMessage,
@@ -27,7 +29,7 @@ app.post("/api/tts/:id/play", async (req, res) => {
   console.log("marked as played");
   const generated = await generateTtsAudio({ text: ttsMessage.text });
   console.log("audio generated");
-  sendTts(generated);
+  sendTtsAudio(generated);
   console.log("socket sent");
   res.send(generated);
 });
@@ -39,4 +41,14 @@ app.delete("/api/tts/:id", async (req, res) => {
 forward({
   from: markTtsMessageAsPlayed.done.map(({ params }) => ({ options: params })),
   to: sendTtsPlayed
+});
+
+forward({
+  from: createTtsMessage.done.map(({ result }) => ({ options: result })),
+  to: sendTtsCreated
+});
+
+forward({
+  from: removeTtsMessage.done.map(({ params }) => ({ options: params })),
+  to: sendTtsRemoved
 });
