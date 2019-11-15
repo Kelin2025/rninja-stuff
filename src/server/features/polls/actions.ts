@@ -1,5 +1,5 @@
 import { createEffect } from "effector";
-import { intervalToSeconds } from "~lib/time-fns";
+import { intervalToSeconds } from "../../../lib/time-fns";
 
 import { PollModel } from "./model";
 import { createSocketSender } from "../../core/socket";
