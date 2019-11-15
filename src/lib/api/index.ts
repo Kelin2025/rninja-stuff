@@ -50,16 +50,28 @@ export const createSocketSender = <T extends Data["options"]>(
   return evt;
 };
 
-export const createApiSender = <T extends {}, R extends {}>(uri, method) => {
+type ApiPayload<T> = { body?: T; params?: {} } | void;
+
+export const createApiSender = <T, R extends {}>(uri, method) => {
   let handler;
   let path = pathToRegexp.compile(uri);
   if (method === "GET") {
-    handler = ({ params }) => api(path(params), { method });
+    handler = ({ params }: ApiPayload<T> = {}) => {
+      const data = {
+        method
+      };
+      return api(path(params || {}), data);
+    };
   } else {
-    handler = ({ body, params }: { body: T; params: {} }) =>
-      api(path(body, params), { method, body: JSON.stringify(body) });
+    handler = ({ body, params }: ApiPayload<T> = {}) => {
+      const data = {
+        method,
+        body: body ? JSON.stringify(body) : undefined
+      };
+      return api(path(params || {}), data);
+    };
   }
-  return createEffect<{ body: T; params?: {} }, R, any>({ handler });
+  return createEffect<ApiPayload<T>, R, any>({ handler });
 };
 
 socket.onmessage = evt => {
