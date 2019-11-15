@@ -4,4 +4,5 @@ export type Poll = {
   answers: string[];
   expiresAt: number;
   votes: number[];
+  ended: boolean;
 };
