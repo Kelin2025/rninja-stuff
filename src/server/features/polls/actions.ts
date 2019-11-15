@@ -16,6 +16,14 @@ export const getPolls = createEffect({
   }
 });
 
+export const getActivePolls = createEffect({
+  handler: () => {
+    return PollModel.find({ ended: false })
+      .sort({ createdAt: -1 })
+      .exec();
+  }
+});
+
 export const getPollById = createEffect({
   handler: ({ id }) => {
     return PollModel.findOne({ _id: id }).exec();
