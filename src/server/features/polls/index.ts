@@ -23,8 +23,8 @@ app.post("/api/polls", async (req, res) => {
   res.send(await createPoll(req.body));
 });
 
-app.post("/api/polls/stop", async (req, res) => {
-  res.send(await stopPoll(req.body));
+app.post("/api/polls/:id/stop", async (req, res) => {
+  res.send(await stopPoll(req.params));
 });
 
 app.delete("/api/polls/:id", async (req, res) => {
