@@ -22,9 +22,13 @@ app.post("/api/tts", async (req, res) => {
 
 app.post("/api/tts/:id/play", async (req, res) => {
   const ttsMessage = await getTtsMessageById({ id: req.params.id });
+  console.log("tts found");
   await markTtsMessageAsPlayed({ id: req.params.id });
+  console.log("marked as played");
   const generated = await generateTtsAudio({ text: ttsMessage.text });
+  console.log("audio generated");
   sendTts(generated);
+  console.log("socket sent");
   res.send(generated);
 });
 
