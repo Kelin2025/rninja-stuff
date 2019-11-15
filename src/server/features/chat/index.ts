@@ -4,6 +4,6 @@ import { messageReceived } from "../../core/tmi";
 import { sendMessageEvent } from "./actions";
 
 forward({
-  from: messageReceived,
+  from: messageReceived.map(options => ({ options })),
   to: sendMessageEvent
 });

@@ -15,11 +15,9 @@ type OutputData = {
   options?: object;
 };
 
-export const socketSendMessage = createEvent<OutputData>("socketSendMessage");
-
-export const socketMessageReceived = createEvent<InputData>(
-  "socketMessageReceived"
-);
+export const socketSendMessage = createEvent<OutputData>();
+export const socketMessageReceived = createEvent<InputData>();
+export const socketClientConnected = createEvent();
 
 export const wss = new WebSocket.Server({ server });
 
@@ -30,10 +28,10 @@ export const socketOn = <T>(target: string): Event<T> =>
 
 export const createSocketSender = <T extends OutputData["options"]>(
   type: string
-): Event<T> => {
-  const evt = createEvent<T>();
+): Event<{ options: T; client?: Object }> => {
+  const evt = createEvent<{ options: T; client?: Object }>();
   forward({
-    from: evt.map(options => ({ type, options })),
+    from: evt.map(({ options, client }) => ({ type, options, client })),
     to: socketSendMessage
   });
   return evt;
@@ -48,6 +46,7 @@ wss.on("connection", async ws => {
   ws.on("message", data => {
     socketMessageReceived({ client: ws, ...JSON.parse(data) });
   });
+  socketClientConnected(ws);
 });
 
 socketSendMessage.watch(({ client, type, options }) => {

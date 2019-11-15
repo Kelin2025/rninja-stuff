@@ -1,9 +1,14 @@
 import { app } from "../../../server/core/app";
 import {
+  getPollTemplates,
   createPollTemplate,
   updatePollTemplate,
   removePollTemplate
 } from "./actions";
+
+app.get("/api/poll-templates", async (req, res) => {
+  res.send(await getPollTemplates(req.body));
+});
 
 app.post("/api/poll-templates", async (req, res) => {
   res.send(await createPollTemplate(req.body));

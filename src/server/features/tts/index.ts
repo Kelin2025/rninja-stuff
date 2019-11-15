@@ -4,12 +4,17 @@ import { app } from "../../../server/core/app";
 import {
   sendTts,
   sendTtsPlayed,
+  getTtsMessages,
   createTtsMessage,
   removeTtsMessage,
   generateTtsAudio,
   getTtsMessageById,
   markTtsMessageAsPlayed
 } from "./actions";
+
+app.get("/api/tts", async (req, res) => {
+  res.send(await getTtsMessages());
+});
 
 app.post("/api/tts", async (req, res) => {
   res.send(await createTtsMessage(req.body));
@@ -28,6 +33,6 @@ app.delete("/api/tts/:id", async (req, res) => {
 });
 
 forward({
-  from: markTtsMessageAsPlayed.done.map(r => r.params),
+  from: markTtsMessageAsPlayed.done.map(({ params }) => ({ options: params })),
   to: sendTtsPlayed
 });

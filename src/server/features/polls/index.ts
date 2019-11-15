@@ -2,6 +2,7 @@ import { app } from "../../../server/core/app";
 import { intervalToSeconds } from "../../../lib/time-fns";
 
 import {
+  getPolls,
   stopPoll,
   createPoll,
   removePoll,
@@ -11,6 +12,10 @@ import {
   sendPollStarted
 } from "./actions";
 import { forward } from "effector";
+
+app.get("/api/polls", async (req, res) => {
+  res.send(await getPolls(req.body));
+});
 
 app.post("/api/polls", async (req, res) => {
   res.send(await createPoll(req.body));
@@ -31,16 +36,16 @@ createPoll.done.watch(({ params, result }) => {
 });
 
 forward({
-  from: createPoll.done.map(({ params }) => params),
+  from: createPoll.done.map(({ params }) => ({ options: params })),
   to: sendPollStarted
 });
 
 forward({
-  from: voteInPoll.done.map(({ params }) => params),
+  from: voteInPoll.done.map(({ params }) => ({ options: params })),
   to: sendPollVoted
 });
 
 forward({
-  from: stopPoll.done.map(({ params }) => params),
+  from: stopPoll.done.map(({ params }) => ({ options: params })),
   to: sendPollStopped
 });

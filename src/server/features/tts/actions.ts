@@ -10,8 +10,9 @@ import { createSocketSender } from "../../../server/core/socket";
 const textToSpeech = pify(polly.textToSpeech);
 const soundPath = path.join(__dirname, "polly-tts.mp3");
 
-export const sendTtsPlayed = createSocketSender("tts:played");
 export const sendTts = createSocketSender("tts:sent");
+export const sendTtsPlayed = createSocketSender("tts:played");
+export const sendTtsListReceived = createSocketSender("tts:list-received");
 
 export const getTtsMessages = createEffect({
   handler: () => {
