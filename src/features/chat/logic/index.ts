@@ -1,6 +1,13 @@
-import { createEvent } from "effector";
+import { createEvent, forward } from "effector";
+
+import { createTtsMessage } from "~api/tts";
 
 export const sendToQueuePressed = createEvent<{
   nickname: string;
-  message: string;
+  text: string;
 }>();
+
+forward({
+  from: sendToQueuePressed.map(body => ({ body })),
+  to: createTtsMessage
+});
