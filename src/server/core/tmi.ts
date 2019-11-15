@@ -4,7 +4,7 @@ import { createEvent } from "effector";
 
 type MessagePayload = {
   channel: string;
-  message: string;
+  text: string;
   userstate: {};
   nickname: string;
   isSub: boolean;
@@ -18,11 +18,9 @@ type SubPayload = {
   streak: number;
 };
 
-export const messageSent = createEvent<string>("messageSent");
-export const messageReceived = createEvent<MessagePayload>("messageReceived");
-export const subscriptionReceived = createEvent<SubPayload>(
-  "subscriptionReceived"
-);
+export const messageSent = createEvent<string>();
+export const messageReceived = createEvent<MessagePayload>();
+export const subscriptionReceived = createEvent<SubPayload>();
 
 const options = {
   options: {
@@ -54,11 +52,11 @@ export const doTwitchRequest = ({ token, path, ...payload }) =>
 
 chat.connect();
 
-chat.on("message", (channel, userstate, message, isSelf) => {
+chat.on("message", (channel, userstate, text, isSelf) => {
   messageReceived({
     channel,
     userstate,
-    message,
+    text,
     nickname: userstate["display-name"],
     isSub: !!userstate.subscriber,
     isSelf: isSelf
