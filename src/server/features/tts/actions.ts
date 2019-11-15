@@ -51,7 +51,7 @@ export const removeTtsMessage = createEffect({
 
 export const generateTtsAudio = createEffect({
   handler: ({ text }) =>
-    new Promise((resolve, reject) => {
+    new Promise(async (resolve, reject) => {
       try {
         const fileStream = fs.createWriteStream(soundPath);
 
@@ -60,7 +60,7 @@ export const generateTtsAudio = createEffect({
           .replace(/>/g, "&gt;")
           .slice(0, 1000);
 
-        const audioStream = textToSpeech({ text: safeText });
+        const audioStream = await textToSpeech({ text: safeText });
         audioStream.pipe(fileStream);
 
         audioStream.on("end", () => {
