@@ -37,6 +37,7 @@ export const createPoll = createEffect({
     poll.question = question;
     poll.answers = answers;
     poll.votes = [];
+    poll.voters = [];
     poll.duration = duration;
     poll.expiresAt = +new Date() + ms;
     poll.ended = false;
@@ -66,6 +67,7 @@ export const voteInPoll = createEffect({
       throw new Error("ALREADY_VOTED");
     }
     poll.votes.push(idx);
+    poll.voters.push(voterId);
     return poll.save();
   }
 });
