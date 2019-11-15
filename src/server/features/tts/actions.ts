@@ -17,7 +17,9 @@ export const sendTtsRemoved = createSocketSender("tts:removed");
 
 export const getTtsMessages = createEffect({
   handler: () => {
-    return TtsMessageModel.find({}).exec();
+    return TtsMessageModel.find({})
+      .sort({ createdAt: -1 })
+      .exec();
   }
 });
 

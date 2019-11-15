@@ -10,7 +10,9 @@ export const sendPollStopped = createSocketSender("poll:stopped");
 
 export const getPolls = createEffect({
   handler: () => {
-    return PollModel.find({}).exec();
+    return PollModel.find({})
+      .sort({ createdAt: -1 })
+      .exec();
   }
 });
 

@@ -6,7 +6,11 @@ export const PollSchema = new Schema({
   votes: [Number],
   duration: Object,
   expiresAt: Number,
-  ended: Boolean
+  ended: Boolean,
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 export const PollModel = model("Poll", PollSchema);
