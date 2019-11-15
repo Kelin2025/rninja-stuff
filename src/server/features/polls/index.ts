@@ -56,7 +56,9 @@ forward({
 });
 
 forward({
-  from: voteInPoll.done.map(({ params }) => ({ options: params })),
+  from: voteInPoll.done.map(({ params }) => ({
+    options: { id: params.id, idx: params.idx }
+  })),
   to: sendPollVoted
 });
 
