@@ -1,4 +1,5 @@
 import { app } from "../../../server/core/app";
+import { messageReceived } from "../../../server/core/tmi";
 import { intervalToSeconds } from "../../../lib/time-fns";
 
 import {
@@ -13,7 +14,6 @@ import {
   getActivePolls
 } from "./actions";
 import { forward } from "effector";
-import { messageReceived } from "~server/core/tmi";
 
 app.get("/api/polls", async (req, res) => {
   res.send(await getPolls(req.body));
