@@ -43,7 +43,7 @@ export const removePoll = createEffect({
 });
 
 export const voteInPoll = createEffect({
-  handler: async ({ id, idx }) => {
+  handler: async ({ id, voterId, idx }) => {
     const poll = await getPollById({ id });
     if (!poll) {
       throw new Error("NO_POLL");
@@ -53,6 +53,9 @@ export const voteInPoll = createEffect({
     }
     if (poll.ended) {
       throw new Error("POLL_EXPIRED");
+    }
+    if (poll.voters.includes(voterId)) {
+      throw new Error("ALREADY_VOTED");
     }
     poll.votes.push(idx);
     return poll.save();

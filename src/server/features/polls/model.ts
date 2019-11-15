@@ -4,6 +4,7 @@ export const PollSchema = new Schema({
   question: String,
   answers: [String],
   votes: [Number],
+  voteres: [String],
   duration: Object,
   expiresAt: Number,
   ended: Boolean,
