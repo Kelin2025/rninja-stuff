@@ -1,3 +1,3 @@
-import { createSocketSender } from "~server/core/socket";
+import { createSocketSender } from "../../core/socket";
 
 export const sendMessageEvent = createSocketSender("chat:message");

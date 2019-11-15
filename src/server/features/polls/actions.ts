@@ -2,7 +2,7 @@ import { createEffect } from "effector";
 import { intervalToSeconds } from "~lib/time-fns";
 
 import { PollModel } from "./model";
-import { createSocketSender } from "~server/core/socket";
+import { createSocketSender } from "../../core/socket";
 
 export const sendPollVoted = createSocketSender("poll:voted");
 export const sendPollStarted = createSocketSender("poll:started");

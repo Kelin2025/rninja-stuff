@@ -3,9 +3,9 @@ import path from "path";
 import pify from "pify";
 import { createEffect } from "effector";
 
-import { polly } from "~server/core/polly";
+import { polly } from "../../../server/core/polly";
 import { TtsMessageModel } from "./model";
-import { createSocketSender } from "~server/core/socket";
+import { createSocketSender } from "../../../server/core/socket";
 
 const textToSpeech = pify(polly.textToSpeech);
 const soundPath = path.join(__dirname, "polly-tts.mp3");

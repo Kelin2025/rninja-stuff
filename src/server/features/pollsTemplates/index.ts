@@ -1,4 +1,4 @@
-import { app } from "~server/core/app";
+import { app } from "../../../server/core/app";
 import {
   createPollTemplate,
   updatePollTemplate,

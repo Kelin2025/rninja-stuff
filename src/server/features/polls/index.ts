@@ -1,5 +1,5 @@
-import { app } from "~server/core/app";
-import { intervalToSeconds } from "~lib/time-fns";
+import { app } from "../../../server/core/app";
+import { intervalToSeconds } from "../../../lib/time-fns";
 
 import {
   stopPoll,

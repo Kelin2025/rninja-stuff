@@ -1,4 +1,6 @@
-import { app } from "~server/core/app";
+import { forward } from "effector";
+import { app } from "../../../server/core/app";
+
 import {
   sendTts,
   sendTtsPlayed,
@@ -8,7 +10,6 @@ import {
   getTtsMessageById,
   markTtsMessageAsPlayed
 } from "./actions";
-import { forward } from "effector";
 
 app.post("/api/tts", async (req, res) => {
   res.send(await createTtsMessage(req.body));
