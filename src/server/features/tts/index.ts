@@ -1,5 +1,6 @@
-import { forward, sample } from "effector";
 import { app } from "../../../server/core/app";
+import { forward, sample } from "effector";
+import { socketClientConnected } from "../../../server/core/socket";
 
 import {
   sendTtsAudio,
@@ -15,7 +16,6 @@ import {
   ttsVolumeChanged,
   markTtsMessageAsPlayed
 } from "./actions";
-import { socketClientConnected } from "~server/core/socket";
 import { $ttsVolume } from "./cache";
 
 app.get("/api/tts", async (req, res) => {
