@@ -31,10 +31,10 @@ const options = {
     secure: true
   },
   identity: {
-    username: "RubbetTtsBot",
+    username: process.env.TMI_NICKNAME,
     password: process.env.TMI_TOKEN
   },
-  channels: [`#${process.env.TMI_NICKNAME}`]
+  channels: [`#${process.env.TMI_CHANNEL}`]
 };
 
 export const chat = new tmi.Client(options);
@@ -82,5 +82,5 @@ chat.on("resub", (channel, username, months, message, userstate) => {
 });
 
 messageSent.watch(message => {
-  chat.say(process.env.TMI_NICKNAME, message);
+  chat.say(process.env.TMI_CHANNEL, message);
 });
