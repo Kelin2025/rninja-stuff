@@ -1,25 +1,31 @@
-import { createStore, combine } from "effector";
+import { createStore } from "effector";
 import { createUseListItem } from "~lib/effector-hook-factory";
 
 import { Poll } from "./types";
-import { $now } from "~lib/time-fns";
+import { Duration } from "~lib/time-fns";
 import { socketOn, createApiSender } from "~lib/api";
 
 export const pollStarted = socketOn<Poll>("poll:started");
-export const pollStopped = socketOn<Poll>("poll:stopped");
+export const pollVoted = socketOn<{ id: string; idx: number }>("poll:voted");
+export const pollStopped = socketOn<{ id: string }>("poll:stopped");
 
 export const createPoll = createApiSender<
-  { question: string; answers: string[] },
+  { question: string; answers: string[]; duration: Duration },
   {}
->("/api/polls", "POST");
-export const removePoll = createApiSender<{}, {}>("/api/polls/:id", "DELETE");
+>("api/polls", "POST");
+export const getPolls = createApiSender<{}, Poll[]>("api/polls", "GET");
+export const stopPoll = createApiSender<{}, Poll[]>(
+  "api/polls/:id/stop",
+  "POST"
+);
+export const removePoll = createApiSender<{}, {}>("api/polls/:id", "DELETE");
 
 export const $pollsList = createStore<Poll[]>([]);
 
-export const $livePolls = combine($now, $pollsList, (now, list) =>
+export const $livePolls = $pollsList.map(list =>
   list.filter(poll => !poll.ended)
 );
-export const $pollsHistory = combine($now, $pollsList, (now, list) =>
+export const $pollsHistory = $pollsList.map(list =>
   list.filter(poll => poll.ended)
 );
 
@@ -30,6 +36,14 @@ export const usePoll = createUseListItem({
 
 $pollsList
   .on(pollStarted, (state, poll) => [poll, ...state])
-  .on(pollStopped, (state, { _id }) =>
-    state.map(cur => (cur._id === _id ? { ...cur, ended: true } : cur))
-  );
+  .on(pollStopped, (state, { id }) =>
+    state.map(cur => (cur._id === id ? { ...cur, ended: true } : cur))
+  )
+  .on(pollVoted, (state, { id, idx }) =>
+    state.map(cur =>
+      cur._id === id ? { ...cur, votes: [...cur.votes, idx] } : cur
+    )
+  )
+  .on(getPolls.done, (state, { result }) => result);
+
+getPolls();
