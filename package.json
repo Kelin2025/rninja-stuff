@@ -21,6 +21,7 @@
     "effector": "^20.6.1",
     "effector-react": "^20.4.1",
     "express": "^4.17.1",
+    "get-audio-duration": "^1.0.0",
     "mongoose": "^5.7.11",
     "nanoid": "^2.1.6",
     "node-fetch": "^2.6.0",

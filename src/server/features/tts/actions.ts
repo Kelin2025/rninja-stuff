@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import pify from "pify";
 import { createEffect } from "effector";
+import { getAudioDurationInSeconds } from "get-audio-duration";
 
 import { polly } from "../../../server/core/polly";
 import { TtsMessageModel } from "./model";
@@ -67,10 +68,12 @@ export const generateTtsAudio = createEffect({
         const audioStream = await textToSpeech({ text: safeText });
         audioStream.pipe(fileStream);
 
-        audioStream.on("end", () => {
+        audioStream.on("end", async () => {
+          const duration = await getAudioDurationInSeconds(soundPath);
           resolve({
             text,
             path: soundPath,
+            duration,
             remove: () => fs.unlink(soundPath, () => {})
           });
         });
