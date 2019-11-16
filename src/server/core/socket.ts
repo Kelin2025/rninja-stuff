@@ -17,7 +17,7 @@ type OutputData = {
 
 export const socketSendMessage = createEvent<OutputData>();
 export const socketMessageReceived = createEvent<InputData>();
-export const socketClientConnected = createEvent();
+export const socketClientConnected = createEvent<{}>();
 
 export const wss = new WebSocket.Server({ server });
 

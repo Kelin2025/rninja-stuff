@@ -1,4 +1,4 @@
-import { forward } from "effector";
+import { forward, sample } from "effector";
 import { app } from "../../../server/core/app";
 
 import {
@@ -11,8 +11,12 @@ import {
   removeTtsMessage,
   generateTtsAudio,
   getTtsMessageById,
+  changeTtsVolume,
+  ttsVolumeChanged,
   markTtsMessageAsPlayed
 } from "./actions";
+import { socketClientConnected } from "~server/core/socket";
+import { $ttsVolume } from "./cache";
 
 app.get("/api/tts", async (req, res) => {
   res.send(await getTtsMessages());
@@ -51,4 +55,19 @@ forward({
 forward({
   from: removeTtsMessage.done.map(({ params }) => ({ options: params })),
   to: sendTtsRemoved
+});
+
+forward({
+  from: changeTtsVolume.done.map(({ result }) => ({
+    options: { volume: result.volume }
+  })),
+  to: ttsVolumeChanged
+});
+
+forward({
+  from: sample($ttsVolume, socketClientConnected, (volume, client) => ({
+    client,
+    options: { volume }
+  })),
+  to: ttsVolumeChanged
 });
