@@ -7,7 +7,7 @@ import { polly } from "../../../server/core/polly";
 import { TtsMessageModel } from "./model";
 import { createSocketSender } from "../../../server/core/socket";
 
-const textToSpeech = pify(p => polly.textToSpeech(p));
+const textToSpeech = pify((p, cb) => polly.textToSpeech(p, cb));
 const soundPath = path.join(__dirname, "polly-tts.mp3");
 
 export const sendTtsAudio = createSocketSender("tts:audio");
