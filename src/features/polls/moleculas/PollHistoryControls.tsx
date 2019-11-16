@@ -2,12 +2,14 @@ import * as React from "react";
 
 import { restartPollPressed } from "../logic";
 
-import { Box } from "~ui";
+import { Box, Button } from "~ui";
 
 export const PollHistoryControls = ({ data }) => {
   return (
     <Box flow="column">
-      <button onClick={() => restartPollPressed(data)}>Start Again</button>
+      <Button type="save" onClick={() => restartPollPressed(data)}>
+        Start Again
+      </Button>
     </Box>
   );
 };

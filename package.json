@@ -15,6 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "@babel/runtime-corejs2": "^7.7.2",
+    "bezier-easing": "^2.1.0",
+    "classnames": "^2.2.6",
     "cors": "^2.8.5",
     "effector": "^20.6.1",
     "effector-react": "^20.4.1",
@@ -24,10 +26,12 @@
     "node-fetch": "^2.6.0",
     "path-to-regexp": "^3.2.0",
     "pify": "^4.0.1",
+    "polished": "^3.4.2",
     "polly-tts": "^1.0.4",
     "ramda": "^0.26.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-spring": "^8.0.27",
     "styled-components": "^4.3.2",
     "tmi.js": "^1.5.0",
     "ws": "^7.2.0"

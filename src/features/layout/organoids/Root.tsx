@@ -4,11 +4,13 @@ import { Header } from "./Header";
 import { Sidebar } from "./Sidebar";
 import { RouterView } from "~lib/routing/react";
 import { RootTemplate } from "~ui";
+import { PollTemplatesModal } from "~features/pollTemplatesModal";
 
 export const Root = () => {
   return (
     <RootTemplate header={<Header />} sidebar={<Sidebar />}>
       <RouterView />
+      <PollTemplatesModal />
     </RootTemplate>
   );
 };

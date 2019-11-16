@@ -2,12 +2,14 @@ import * as React from "react";
 
 import { stopPollPressed } from "../logic";
 
-import { Box } from "~ui";
+import { Box, Button } from "~ui";
 
 export const LivePollControls = ({ data }) => {
   return (
     <Box flow="column">
-      <button onClick={() => stopPollPressed(data)}>Stop Now</button>
+      <Button type="cancel" onClick={() => stopPollPressed(data)}>
+        Stop Now
+      </Button>
     </Box>
   );
 };
