@@ -10,7 +10,7 @@ export const PollsTemplatesList = () => {
   const pollsTemplates = useStore($pollsTemplates);
 
   return (
-    <Box flow="row">
+    <Box flow="row" cols={["1fr"]}>
       {pollsTemplates.map(pollTemplate => (
         <PollTemplate id={pollTemplate._id} />
       ))}

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useStore, useList } from "effector-react";
+import { useList } from "effector-react";
 
 import { $ttsHistory } from "~api/tts";
 
