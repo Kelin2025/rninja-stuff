@@ -2,22 +2,24 @@ import * as React from "react";
 
 import { usePoll } from "~api/polls";
 import { useStaticDate } from "~lib/hooks";
+import { useIsRendered } from "~lib/highlight-render-hook";
 
 import { Card, Box, Countdown } from "~ui";
 
 export const Poll = ({ id, controls: Controls }) => {
   const poll = usePoll(id);
+  const isRendered = useIsRendered.memo(`poll${poll._id}`, 300);
 
   const now = useStaticDate();
 
   return (
-    <Card>
+    <Card isHighlighted={isRendered}>
       <Box flow="row" cols={["1fr"]}>
         <Box flow="column" justify="space-between">
           <h2>{poll.question}</h2>
           {Controls && <Controls data={poll} />}
         </Box>
-        {+now < poll.expiresAt && (
+        {!poll.ended && (
           <div>
             Ends in:{" "}
             <Countdown
