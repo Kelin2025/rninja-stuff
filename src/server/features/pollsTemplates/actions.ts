@@ -3,9 +3,15 @@ import { createEffect } from "effector";
 import { PollTemplateModel } from "./model";
 import { createSocketSender } from "../../core/socket";
 
-export const pollTemplateCreated = createSocketSender("poll-templates:created");
-export const pollTemplateUpdated = createSocketSender("poll-templates:updated");
-export const pollTemplateRemoved = createSocketSender("poll-templates:removed");
+export const pollTemplateCreated = createSocketSender(
+  "polls-templates:created"
+);
+export const pollTemplateUpdated = createSocketSender(
+  "polls-templates:updated"
+);
+export const pollTemplateRemoved = createSocketSender(
+  "polls-templates:removed"
+);
 
 export const getPollTemplates = createEffect({
   handler: () => {
