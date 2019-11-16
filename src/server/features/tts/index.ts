@@ -33,7 +33,7 @@ app.post("/api/tts/:id/play", async (req, res) => {
   console.log("marked as played");
   const generated = await generateTtsAudio({ text: ttsMessage.text });
   console.log("audio generated");
-  sendTtsAudio(generated);
+  sendTtsAudio({ options: generated });
   console.log("socket sent");
   res.send(generated);
 });
