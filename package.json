@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "parcel src/index.html",
+    "dev:client": "parcel src/index.html",
+    "dev:widget": "parcel src/widget.html",
     "build:server": "parcel build -t node src/server/index.ts --out-file dist/server.js",
     "build:client": "parcel build src/index.html --no-source-maps",
-    "build": "npm run build:server && npm run build:client",
+    "build:widget": "parcel build src/widget.html --no-source-maps",
+    "build": "npm run build:server && npm run build:client && npm run build:widget",
     "start": "node dist/server.js"
   },
   "author": "",
