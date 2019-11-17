@@ -8,6 +8,7 @@ export * from "./atoms/CountdownBar";
 export * from "./atoms/Duration";
 export * from "./atoms/ClickableIcon";
 export * from "./atoms/Input";
+export * from "./atoms/OverlayCard";
 export * from "./atoms/Label";
 export * from "./atoms/SubnavLink";
 export * from "./atoms/SubnavRouteLink";

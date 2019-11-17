@@ -1,9 +1,22 @@
 import * as React from "react";
 import styled from "styled-components";
 
-const ClickableIconView = ({ icon: Icon, className, ...props }) => (
-  <Icon className={className} {...props} />
-);
+const ClickableIconView = ({
+  icon: Icon,
+  className,
+  onClick,
+  disabled,
+  ...props
+}) => {
+  const handleClick = React.useCallback(() => {
+    if (disabled) {
+      return;
+    }
+    onClick();
+  }, [onClick, disabled]);
+
+  return <Icon className={className} onClick={handleClick} {...props} />;
+};
 
 export const ClickableIcon = styled(ClickableIconView)`
   cursor: pointer;
