@@ -17,7 +17,6 @@ export const useTimeToEnd = (endDate: Date): number => {
         return;
       }
       setRemainingTime(timeLeft);
-      requestAnimationFrame(tick);
     };
 
     requestAnimationFrame(tick);
@@ -25,16 +24,19 @@ export const useTimeToEnd = (endDate: Date): number => {
     return () => {
       cancelAnimationFrame(tick);
     };
-  }, []);
+  }, [endDate, setRemainingTime]);
 
   return remainingTime;
 };
 
 /** Takes start date and duration and returns ms remaining */
 export const useTimer = (startDate: Date, duration: Duration): number => {
-  return useTimeToEnd(
-    new Date(+startDate + intervalToSeconds(duration) * 1000)
+  const endDate = React.useMemo(
+    () => +startDate + intervalToSeconds(duration) * 1000,
+    [startDate, duration]
   );
+
+  return useTimeToEnd(new Date(endDate));
 };
 
 export const useStaticDate = () => {
