@@ -29,6 +29,9 @@ export const $pollsHistory = $pollsList.map(list =>
   list.filter(poll => poll.ended)
 );
 
+export const $livePoll = createStore(null);
+export const $hasLivePoll = $livePoll.map(poll => !!poll && !poll.ended);
+
 export const usePoll = createUseListItem({
   store: $pollsList,
   check: (id: string, poll) => poll._id === id
@@ -45,5 +48,13 @@ $pollsList
     )
   )
   .on(getPolls.done, (state, { result }) => result);
+
+$livePoll
+  .on(pollStarted, (state, poll) => poll)
+  .on(
+    getPolls.done,
+    (state, { result }) => result.find(poll => !poll.ended) || null
+  )
+  .on(pollStopped, state => ({ ...state, ended: true }));
 
 getPolls();

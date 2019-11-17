@@ -1,3 +1,5 @@
+import { Duration } from "~lib/time-fns";
+
 export type Poll = {
   _id: string;
   question: string;
@@ -5,4 +7,5 @@ export type Poll = {
   expiresAt: number;
   votes: number[];
   ended: boolean;
+  duration: Duration;
 };
