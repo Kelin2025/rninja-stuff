@@ -3,7 +3,6 @@ import * as React from "react";
 import { Box } from "~ui";
 import { ChatMessagesList, ChatMessageControls } from "~features/chat";
 import {
-  TtsVolume,
   TtsQueueList,
   TtsHistoryList,
   TtsLiveControls,
@@ -20,7 +19,6 @@ export const TtsPage = () => {
       <Box cols={["1fr"]}>
         <Box flow="column" justify="space-between">
           <h2>TTS Queue</h2>
-          <TtsVolume />
         </Box>
         <TtsQueueList controls={TtsLiveControls} />
       </Box>

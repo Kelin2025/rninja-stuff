@@ -1,5 +1,3 @@
-export * from "./atoms/TtsVolume";
-
 export * from "./moleculas/TtsHistoryControls";
 export * from "./moleculas/TtsLiveControls";
 
