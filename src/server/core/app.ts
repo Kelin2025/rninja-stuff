@@ -17,8 +17,12 @@ if (process.env.NODE_ENV === "production") {
 }
 
 (async () => {
-  app.get(["/", "/polls", "/polls/templates"], async (req, res) => {
+  app.get(["/", "/polls", "/polls/templates", "/tts"], async (req, res) => {
     res.sendFile(path.join(__dirname, "/index.html"));
+  });
+
+  app.get(["/widget"], async (req, res) => {
+    res.sendFile(path.join(__dirname, "/widget.html"));
   });
 
   app.use(express.static("dist"));
