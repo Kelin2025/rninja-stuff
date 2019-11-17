@@ -15,7 +15,6 @@ export const sendTtsAudio = createSocketSender("tts:audio");
 export const sendTtsPlayed = createSocketSender("tts:played");
 export const sendTtsCreated = createSocketSender("tts:created");
 export const sendTtsRemoved = createSocketSender("tts:removed");
-export const ttsVolumeChanged = createSocketSender("tts:volume-changed");
 
 export const getTtsMessages = createEffect({
   handler: () => {
@@ -82,8 +81,4 @@ export const generateTtsAudio = createEffect({
       }
     });
   }
-});
-
-export const changeTtsVolume = createEffect({
-  handler: ({ volume }) => ({ volume })
 });
