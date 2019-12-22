@@ -7,6 +7,7 @@ import { createSocketSender } from "../../core/socket";
 export const sendPollVoted = createSocketSender("poll:voted");
 export const sendPollStarted = createSocketSender("poll:started");
 export const sendPollStopped = createSocketSender("poll:stopped");
+export const sendPollsCleared = createSocketSender("polls:cleared");
 
 export const getPolls = createEffect({
   handler: () => {
@@ -80,5 +81,11 @@ export const stopPoll = createEffect({
     }
     poll.ended = true;
     return poll.save();
+  }
+});
+
+export const clearPolls = createEffect({
+  handler: async () => {
+    return PollModel.remove({});
   }
 });

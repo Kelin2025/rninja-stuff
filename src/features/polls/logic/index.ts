@@ -1,11 +1,12 @@
 import { forward, createEvent } from "effector";
 
 import { Duration } from "~lib/time-fns";
-import { stopPoll, createPoll } from "~api/polls";
+import { stopPoll, createPoll, clearPolls } from "~api/polls";
 
 export const stopPollPressed = createEvent<{
   _id: string;
 }>();
+export const clearPressed = createEvent<void>();
 export const restartPollPressed = createEvent<{
   question: string;
   answers: string[];
@@ -15,6 +16,11 @@ export const restartPollPressed = createEvent<{
 forward({
   from: stopPollPressed.map(({ _id }) => ({ params: { id: _id } })),
   to: stopPoll
+});
+
+forward({
+  from: clearPressed.map(() => ({})),
+  to: clearPolls
 });
 
 forward({

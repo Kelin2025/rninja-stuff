@@ -1,3 +1,5 @@
+export * from "./atoms/ClearPollsHistoryButton";
+
 export * from "./moleculas/LivePollControls";
 export * from "./moleculas/PollHistoryControls";
 

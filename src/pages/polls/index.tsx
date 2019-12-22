@@ -1,17 +1,18 @@
 import * as React from "react";
 import { useStore } from "effector-react";
+import { forward, createEvent } from "effector";
 
 import { $livePolls } from "~api/polls";
+import { pollsStartModalOpened } from "~features/pollsStartModal/logic/controls";
 
-import { Box, Button, Card } from "~ui";
+import { Box, Button } from "~ui";
 import {
   PollsHistory,
   LivePollsList,
   LivePollControls,
-  PollHistoryControls
+  PollHistoryControls,
+  ClearPollsHistoryButton
 } from "~features/polls";
-import { createEvent, forward } from "effector";
-import { pollsStartModalOpened } from "~features/pollsStartModal/logic/controls";
 
 const createPressed = createEvent();
 
@@ -44,7 +45,10 @@ export const PollsPage = () => {
         <LiveSection />
       </Box>
       <Box flow="row" cols={["1fr"]}>
-        <h2>History</h2>
+        <Box flow="column" justify="space-between">
+          <h2>History</h2>
+          <ClearPollsHistoryButton />
+        </Box>
         <PollsHistory controls={PollHistoryControls} />
       </Box>
     </Box>

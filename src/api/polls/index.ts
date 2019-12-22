@@ -8,6 +8,7 @@ import { socketOn, createApiSender } from "~lib/api";
 export const pollStarted = socketOn<Poll>("poll:started");
 export const pollVoted = socketOn<{ id: string; idx: number }>("poll:voted");
 export const pollStopped = socketOn<{ id: string }>("poll:stopped");
+export const pollsCleared = socketOn<{}>("polls:cleared");
 
 export const createPoll = createApiSender<
   { question: string; answers: string[]; duration: Duration },
@@ -19,6 +20,7 @@ export const stopPoll = createApiSender<{}, Poll[]>(
   "POST"
 );
 export const removePoll = createApiSender<{}, {}>("api/polls/:id", "DELETE");
+export const clearPolls = createApiSender<{}, {}>("api/polls/clear", "POST");
 
 export const $pollsList = createStore<Poll[]>([]);
 
@@ -47,7 +49,8 @@ $pollsList
       cur._id === id ? { ...cur, votes: [...cur.votes, idx] } : cur
     )
   )
-  .on(getPolls.done, (state, { result }) => result);
+  .on(getPolls.done, (state, { result }) => result)
+  .on(pollsCleared, () => []);
 
 $livePoll
   .on(pollStarted, (state, poll) => poll)
@@ -60,6 +63,7 @@ $livePoll
       ? { ...state, votes: [...state.votes, idx] }
       : state
   )
-  .on(pollStopped, state => ({ ...state, ended: true }));
+  .on(pollStopped, state => ({ ...state, ended: true }))
+  .on(pollsCleared, () => null);
 
 getPolls();

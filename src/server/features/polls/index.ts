@@ -1,3 +1,5 @@
+import { forward } from "effector";
+
 import { app } from "../../../server/core/app";
 import { messageReceived } from "../../../server/core/tmi";
 import { intervalToSeconds } from "../../../lib/time-fns";
@@ -8,12 +10,13 @@ import {
   createPoll,
   removePoll,
   voteInPoll,
+  clearPolls,
   sendPollVoted,
   sendPollStopped,
   sendPollStarted,
-  getActivePolls
+  getActivePolls,
+  sendPollsCleared
 } from "./actions";
-import { forward } from "effector";
 
 app.get("/api/polls", async (req, res) => {
   res.send(await getPolls(req.body));
@@ -21,6 +24,11 @@ app.get("/api/polls", async (req, res) => {
 
 app.post("/api/polls", async (req, res) => {
   res.send(await createPoll(req.body));
+});
+
+app.post("/api/polls/clear", async (req, res) => {
+  await clearPolls();
+  res.send({ success: true });
 });
 
 app.post("/api/polls/:id/stop", async (req, res) => {
@@ -65,4 +73,9 @@ forward({
 forward({
   from: stopPoll.done.map(({ params }) => ({ options: params })),
   to: sendPollStopped
+});
+
+forward({
+  from: clearPolls.done.map(() => ({ options: {} })),
+  to: sendPollsCleared
 });
