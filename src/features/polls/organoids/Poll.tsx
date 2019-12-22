@@ -8,9 +8,13 @@ import { Card, Box, Countdown } from "~ui";
 
 export const Poll = ({ id, controls: Controls }) => {
   const poll = usePoll(id);
-  const isRendered = useIsRendered.memo(`poll${poll._id}`, 300);
+  const isRendered = useIsRendered.memo(`poll${id}`, 300);
 
   const now = useStaticDate();
+
+  if (!poll) {
+    return null;
+  }
 
   return (
     <Card isHighlighted={isRendered}>
