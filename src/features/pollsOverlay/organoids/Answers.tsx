@@ -17,6 +17,8 @@ const $obj = combine($answers, $votes, (answers, votes) =>
   answers.map((answer, idx) => ({ answer, votes: votes[idx] }))
 );
 
+$livePoll.watch(console.log);
+
 export const Answers = () => {
   return useList($obj, ({ answer, votes }) => (
     <OverlayCard title={<b>{answer}</b>}>

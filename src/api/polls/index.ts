@@ -55,6 +55,11 @@ $livePoll
     getPolls.done,
     (state, { result }) => result.find(poll => !poll.ended) || null
   )
+  .on(pollVoted, (state, { id, idx }) =>
+    state && state._id === id
+      ? { ...state, votes: [...state.votes, idx] }
+      : state
+  )
   .on(pollStopped, state => ({ ...state, ended: true }));
 
 getPolls();

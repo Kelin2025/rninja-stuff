@@ -22,13 +22,9 @@ const $createdAt = combine(
   (duration, expiresAt) => expiresAt - intervalToSeconds(duration) * 1000
 );
 
-$livePoll.watch(console.log);
-
 export const PollTimer = () => {
   const duration = useStore($duration);
   const createdAt = useStore($createdAt);
-
-  console.log(duration, createdAt, new Date(createdAt));
 
   return (
     <Box flow="column">
