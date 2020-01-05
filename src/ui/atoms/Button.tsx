@@ -86,4 +86,8 @@ export const Button = styled(ButtonView)`
       background: none;
     }
   }
+
+  svg {
+    height: 16px;
+  }
 `;
