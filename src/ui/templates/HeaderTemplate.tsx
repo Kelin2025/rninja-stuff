@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 
 export const HeaderTemplate = styled.div`
-  background: purple;
+  background: #8c56ff;
   padding: 15px;
 
   h2 {
