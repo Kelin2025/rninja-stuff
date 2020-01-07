@@ -64,7 +64,10 @@ export const generateTtsAudio = createEffect({
           .replace(/>/g, "&gt;")
           .slice(0, 1000);
 
-        const audioStream = await textToSpeech({ text: safeText });
+        const audioStream = await textToSpeech({
+          text: safeText,
+          voiceId: "Joanna"
+        });
         audioStream.pipe(fileStream);
 
         audioStream.on("end", async () => {
