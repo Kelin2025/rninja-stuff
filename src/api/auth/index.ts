@@ -35,3 +35,8 @@ $isAuthorized.on(authorized, () => true).on(notAuthorized, () => false);
 notAuthorized.watch(() => {
   location.href = "https://twitch.tv/RubberNinja";
 });
+
+// Prevent Heroku from terminating the instance
+setTimeout(() => {
+  location.reload();
+}, 20 * 60 * 1000);
