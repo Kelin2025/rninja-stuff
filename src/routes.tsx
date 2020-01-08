@@ -23,6 +23,12 @@ const routes = {
     meta: {
       path: "/tts"
     }
+  },
+  auth: {
+    view: () => null,
+    meta: {
+      path: "/auth/:token"
+    }
   }
 };
 
